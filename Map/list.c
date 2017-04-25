@@ -429,7 +429,7 @@ Link_t quickSort( Link_t head, Link_t tail )
 /*************************************************************************
  *  LinkID查询
  *************************************************************************/
-Link_t listSearchLinkID(Link_t head, unsigned long rLinkId)
+Link_t listSearchLinkID(Link_t head, unsigned long lLinkId)
 {
     Link_t p,pointer = createList();
     Link_t q  = NULL;
@@ -440,7 +440,7 @@ Link_t listSearchLinkID(Link_t head, unsigned long rLinkId)
     p = head;
     while(p != NULL)
     {
-        if(p->road.linkID == rLinkId)
+        if(p->road.linkID == lLinkId)
         {
             searchTime++;
             /*printf("listSearchLinkID->");
@@ -463,22 +463,27 @@ Link_t listSearchLinkID(Link_t head, unsigned long rLinkId)
     }
     free(q);
     printf("searchTime=%d\n",searchTime);
-    if(searchTime < 5)
+    if(searchTime == 0)
+    {
+        puts("The data has 0 in the file!!!");
+    }
+    else if(searchTime < 5)
     {
         PrintList(pointer);
     }
     else
     {
-        puts("Search data more than 5");
+        puts("Search data more than 5,it has saved in the file!!!");
         listSaveFile(pointer);
     }
+    puts("Search Data Successful!!");
     searchTime = 0;
     return head;
 }
 /*************************************************************************
  *  Brunch查询
  *************************************************************************/
-Link_t listSearchBrunch(Link_t head, int rBrunch)
+Link_t listSearchBrunch(Link_t head, int lBrunch)
 {
     Link_t p,pointer = createList();
     Link_t q  = NULL;
@@ -489,7 +494,7 @@ Link_t listSearchBrunch(Link_t head, int rBrunch)
     p = head;
     while(p != NULL)
     {
-        if(p->road.Brunch == rBrunch)
+        if(p->road.Brunch == lBrunch)
         {
             searchTime++;
             /*printf("listSearchBrunch->");
@@ -515,15 +520,20 @@ Link_t listSearchBrunch(Link_t head, int rBrunch)
         p = p->next;
     }
     printf("searchTime=%d\n",searchTime);
-    if(searchTime < 5)
+    if(searchTime == 0)
+    {
+        puts("The data has 0 in the file!!!");
+    }
+    else if(searchTime < 5)
     {
         PrintList(pointer);
     }
     else
     {
-        puts("Search data more than 5");
+        puts("Search data more than 5,it has saved in the file!!!");
         listSaveFile(pointer);
     }
+    puts("Search Data Successful!!");
     searchTime = 0;
     return pointer;
 }
@@ -531,7 +541,7 @@ Link_t listSearchBrunch(Link_t head, int rBrunch)
  *  RoadName查询
  *************************************************************************/
 
-Link_t listSearchRoadName(Link_t head, char *rRoadName)
+Link_t listSearchRoadName(Link_t head, char *lRoadName)
 {
     Link_t p,pointer = createList();
     Link_t q  = NULL;
@@ -542,7 +552,7 @@ Link_t listSearchRoadName(Link_t head, char *rRoadName)
     p = head;
     while(p != NULL)
     {
-        if( !strcmp(p->road.roadName,rRoadName) )
+        if( !strcmp(p->road.roadName,lRoadName) )
         {
             searchTime++;
             /*printf("listSearchRoadName->");
@@ -565,15 +575,20 @@ Link_t listSearchRoadName(Link_t head, char *rRoadName)
         p = p->next;
     }
     printf("searchTime=%d\n",searchTime);
-    if(searchTime < 5)
+    if(searchTime == 0)
+    {
+        puts("The data has 0 in the file!!!");
+    }
+    else if(searchTime < 5)
     {
         PrintList(pointer);
     }
     else
     {
-        puts("Search data more than 5");
+        puts("Search data more than 5,it has saved in the file!!!");
         listSaveFile(pointer);
     }
+    puts("Search Data Successful!!");
     searchTime = 0;
     return head;
 }
@@ -631,6 +646,7 @@ Link_t listPositionInsert(Link_t L,int pos,Link_t node)
     q->next = pre->next;
     pre->next = q;
 
+    puts("Insert Data Successful!!");
     return L;
 }
 /*************************************************************************

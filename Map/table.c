@@ -5,6 +5,28 @@
 #include "Macro.h"
 
 /*************************************************************************
+*    Func:      printTable(Table)
+*    Para:      table_t *p, int n
+*    retrurn:   void
+**************************************************************************/
+void printTable( table_t *p,int n )
+{
+    int i = 0;
+    while(i < n)
+    {
+        printf("LinkID=%ld  ",p[i].road_t.linkID);
+        printf("RoadNameFlag=%d  ",p[i].road_t.RoadNameFlag);
+        printf("Brunch=%d  ",p[i].road_t.Brunch);
+        printf("DispClass=%d  ",p[i].road_t.DispClass);
+        printf("RoadName=%s\n",p[i].road_t.roadName);
+        i++;
+    }
+}
+/*************************************************************************
+ *                      Searching Function
+ * ***********************************************************************/
+
+/*************************************************************************
 *    Func:      Bublesort(Table)
 *    Para:      table_t *p, int n
 *    retrurn:   void
@@ -195,10 +217,10 @@ void MergeSort(table_t *p, int first, int last)
     int mid = 0;
     if(first < last)
     {
-        mid = (first+last) / 2; /* 注意防止溢出 */
-        MergeSort(p, first, mid);
-        MergeSort(p, mid+1,last);
-        Merge(p,first,mid,last);
+        mid = ( first + last ) / 2; /* 注意防止溢出 */
+        MergeSort( p, first, mid );
+        MergeSort( p, mid+1,last );
+        Merge( p,first,mid,last );
     }
     return;
 }
@@ -280,3 +302,278 @@ void HeapSort(table_t *p,int n)
     }
 }
 
+/*************************************************************************
+ *                      Searching Function
+ * ***********************************************************************/
+
+/*************************************************************************
+*    Func:      tableSearchLinkID(Table)
+*    Para:      table_t *p,int len
+*    retrurn:   void
+**************************************************************************/
+void tableSearchLinkID( table_t *p,int len )
+{
+    unsigned long tLinkID = 0;
+    int i = 0;
+    int j = 0;
+    int searchTime_t = 0;
+    table_t *q = (table_t *)malloc( TABLELENGTH * sizeof(table_t) );
+    printf("Please input the LinkID you want to search:");
+    scanf("%ld",&tLinkID);
+    puts("\t\t\tSearching Begining!!!");
+    while( i < len )
+    {
+        if ( p[i].road_t.linkID == tLinkID )
+        {
+            q[j].road_t.linkID = p[i].road_t.linkID;
+            q[j].road_t.Brunch = p[i].road_t.Brunch;
+            q[j].road_t.RoadNameFlag = p[i].road_t.RoadNameFlag;
+            q[j].road_t.DispClass = p[i].road_t.DispClass;
+            strcpy(q[j].road_t.roadName,p[i].road_t.roadName);
+            j++;
+            searchTime_t++;
+        }
+        i++;
+    }
+    if ( 0 == searchTime_t  )
+    {
+        puts("The data has 0 in the file!!!");
+    }
+    else if  ( searchTime_t < 5 )
+    {
+        puts("The data has saved in the file!!!");
+        printTable( q,searchTime_t );
+    }
+    else
+    {
+        puts("Search data more than 5,it has saved in the file!!!");
+        tableSaveFile(q, searchTime_t);
+    }
+    puts("\t\t\tSearching Finishing!!!");
+    printf("Searching times:%d\n",searchTime_t);
+    searchTime_t = 0;
+}
+
+/*************************************************************************
+*    Func:      tableSearchBrunch(Table)
+*    Para:      table_t *p,int len
+*    retrurn:   void
+**************************************************************************/
+void tableSearchBrunch( table_t *p,int len )
+{
+    int tBrunch = 0;
+    int i = 0;
+    int j = 0;
+    int searchTime_t = 0;
+    table_t *q = (table_t *)malloc( TABLELENGTH * sizeof(table_t) );
+    printf("Please input the Brunch you want to search:");
+    scanf("%d",&tBrunch);
+    puts("\t\t\tSearching Begining!!!");
+    while( i < len )
+    {
+        if ( p[i].road_t.Brunch == tBrunch )
+        {
+            q[j].road_t.linkID = p[i].road_t.linkID;
+            q[j].road_t.Brunch = p[i].road_t.Brunch;
+            q[j].road_t.RoadNameFlag = p[i].road_t.RoadNameFlag;
+            q[j].road_t.DispClass = p[i].road_t.DispClass;
+            strcpy(q[j].road_t.roadName,p[i].road_t.roadName);
+            j++;
+            searchTime_t++;
+        }
+        i++;
+    }
+    if ( 0 == searchTime_t  )
+    {
+        puts("The data has 0 in the file!!!");
+    }
+    else if  ( searchTime_t < 5 )
+    {
+        printTable( q, searchTime_t );
+    }
+    else
+    {
+        puts("Search data more than 5,it has saved in the file!!!");
+        tableSaveFile(q, searchTime_t);
+    }
+    puts("\t\t\tSearching Finishing!!!");
+    printf("Searching times:%d\n",searchTime_t);
+    searchTime_t = 0;
+}
+
+/*************************************************************************
+*    Func:      tableSearchRoadName(Table)
+*    Para:      table_t *p,int len
+*    retrurn:   void
+**************************************************************************/
+void tableSearchRoadName( table_t *p,int len )
+{
+    char tRoadName[MAXLENGTH];;
+    int i = 0;
+    int j = 0;
+    int searchTime_t = 0;
+    table_t *q = (table_t *)malloc( TABLELENGTH * sizeof(table_t) );
+    printf("Please input the RoadName you want to search:");
+    scanf("%s",tRoadName);
+    puts("\t\t\tSearching Begining!!!");
+    while( i < len )
+    {
+        if ( !strcmp(p[i].road_t.roadName,tRoadName) )
+        {
+            q[j].road_t.linkID = p[i].road_t.linkID;
+            q[j].road_t.Brunch = p[i].road_t.Brunch;
+            q[j].road_t.RoadNameFlag = p[i].road_t.RoadNameFlag;
+            q[j].road_t.DispClass = p[i].road_t.DispClass;
+            strcpy(q[j].road_t.roadName,p[i].road_t.roadName);
+            j++;
+            searchTime_t++;
+        }
+        i++;
+    }
+    if ( 0 == searchTime_t  )
+    {
+        puts("The data has 0 in the file!!!");
+    }
+    else if  ( searchTime_t < 5 )
+    {
+        printTable( q,searchTime_t );
+    }
+    else
+    {
+        puts("Search data more than 5,it has saved in the file!!!");
+        tableSaveFile(q, searchTime_t);
+    }
+    puts("\t\t\tSearching Finishing!!!");
+    printf("Searching times:%d\n",searchTime_t);
+    searchTime_t = 0;
+}
+/*************************************************************************
+ *                      Inserting Function
+ * ***********************************************************************/
+
+/*************************************************************************
+*    Func:      tableInsertOrder(Table)
+*    Para:      table_t *p, table_t *q
+*    retrurn:   int
+**************************************************************************/
+int tableOrderInsert( table_t *p,int len )
+{
+    int i = len;
+    int j = 0;
+    table_t *q = (table_t *)malloc( TABLELENGTH * sizeof(table_t) );
+
+    printf("Please input the data you want to insert!!!\n");
+    printf("LinkID:");
+    scanf("%ld",&q[0].road_t.linkID);
+    printf("Brunch:");
+    scanf("%d",&q[0].road_t.Brunch);
+    printf("DispClass:");
+    scanf("%d",&q[0].road_t.DispClass);
+    printf("RoadNameFlag:");
+        scanf("%d",&q[0].road_t.RoadNameFlag);
+    printf("roadName:");
+    scanf("%s",q[0].road_t.roadName);
+
+    if ( p[i].road_t.linkID > q[0].road_t.linkID )
+    {
+        p[i + 1].road_t.linkID = p[i].road_t.linkID;
+        p[i + 1].road_t.Brunch = p[i].road_t.Brunch;
+        p[i + 1].road_t.DispClass = p[i].road_t.DispClass;
+        p[i + 1].road_t.RoadNameFlag = p[i].road_t.RoadNameFlag;
+        strcpy( p[i + 1].road_t.roadName,p[i].road_t.roadName );
+
+        i--;
+    }
+
+    p[i].road_t.linkID = q[0].road_t.linkID;
+    p[i].road_t.Brunch = q[0].road_t.Brunch;
+    p[i].road_t.DispClass = q[0].road_t.DispClass;
+    p[i].road_t.RoadNameFlag = q[0].road_t.RoadNameFlag;
+    strcpy(p[i].road_t.roadName,q[0].road_t.roadName);
+
+    len++;
+    return len;
+}
+/*************************************************************************
+*    Func:      tablePositionInsert(Table)
+*    Para:      table_t *p, int len
+*    retrurn:   int
+**************************************************************************/
+int tablePositionInsert( table_t *p,int len )
+{
+    int pos = 0;
+    int i = len;
+    //char tRoadName[MAXLENGTH];
+    table_t *q = (table_t *)malloc( TABLELENGTH * sizeof(table_t) );
+
+    printf("Please input the data you want to insert!!!\n");
+    printf("LinkID:");
+    scanf("%ld",&q[0].road_t.linkID);
+    printf("Brunch:");
+    scanf("%d",&q[0].road_t.Brunch);
+    printf("DispClass:");
+    scanf("%d",&q[0].road_t.DispClass);
+    printf("RoadNameFlag:");
+    scanf("%d",&q[0].road_t.RoadNameFlag);
+    printf("roadName:");
+    scanf("%s",q[0].road_t.roadName);
+
+    printf("Please input the position you want to insert:");
+    scanf("%d",&pos);
+    if( pos < 1 || pos > len + 1 )
+    {
+        puts("Error insert position!!!");
+    }
+    while ( i > pos )
+    {
+        p[i].road_t.linkID = p[i - 1].road_t.linkID;
+        p[i].road_t.Brunch = p[i - 1].road_t.Brunch;
+        p[i].road_t.DispClass = p[i - 1].road_t.DispClass;
+        p[i].road_t.RoadNameFlag = p[i - 1].road_t.RoadNameFlag;
+        strcpy( p[i].road_t.roadName,p[i - 1].road_t.roadName );
+
+        i--;
+    }
+
+    p[i - 1].road_t.linkID = q[0].road_t.linkID;
+    p[i - 1].road_t.Brunch = q[0].road_t.Brunch;
+    p[i - 1].road_t.DispClass = q[0].road_t.DispClass;
+    p[i - 1].road_t.RoadNameFlag = q[0].road_t.RoadNameFlag;
+    strcpy(p[i - 1].road_t.roadName,q[0].road_t.roadName);
+
+    len++;
+    return len;
+}
+/*************************************************************************
+ *                      Deleting Function
+ * ***********************************************************************/
+
+/*************************************************************************
+*    Func:      tableDelete(Table)
+*    Para:      table_t *p,int len
+*    retrurn:   int
+**************************************************************************/
+int tableDelete( table_t *p,int len )
+{
+    int i = 0;
+    int j = 0;
+    unsigned long tLinkID = 0;
+    printf("Please input the LinkID of data you want to delete:");
+    scanf("%ld",&tLinkID);
+    for( i = 0; i < len; i++ )
+    {
+        if( p[i].road_t.linkID == tLinkID )
+        {
+            for ( j = i;j < len;j++ )
+            {
+                p[j].road_t.linkID = p[j + 1].road_t.linkID;
+                p[j].road_t.Brunch = p[j + 1].road_t.Brunch;
+                p[j].road_t.DispClass = p[j + 1].road_t.DispClass;
+                p[j].road_t.RoadNameFlag = p[j + 1].road_t.RoadNameFlag;
+                strcpy( p[j].road_t.roadName,p[j + 1].road_t.roadName );
+            }
+        }
+    }
+    len--;
+    return len;
+}

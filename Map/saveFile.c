@@ -14,17 +14,21 @@ int tableLength;
 *    Para:      link  link_t[](typedef struct link link_t[])
 *    retrurn:   link
 **************************************************************************/
-void tableSaveFile( table_t *p )
+void tableSaveFile( table_t *p,int len )
 {
     table_t *node;
     node = p;
     char fileName[FILEMAXLENGTH];
+    char fileNameHeader[FILEMAXLENGTH] = "../Data/";
+    char fileNameFeet[FILEMAXLENGTH];
     int count = 0;
 
-    /*printf("Please input the writing file saving path(etc:../Data/sourceLink.txt):");
-    scanf("%s",fileName);
-    FILE *pFileOut = fopen(fileName,"w");    //写入刚才读取的文件*/
-    FILE *pFileOut = fopen("../Data/sourceLink1.txt","w");    //写入刚才读取的文件
+    strcpy(fileName,fileNameHeader);
+    printf("Please input the saving file path(etc:sourceLink.txt):");
+    scanf("%s",fileNameFeet);
+    strcat(fileName,fileNameFeet);
+    FILE *pFileOut = fopen(fileName,"w");    //写入刚才读取的文件
+    //FILE *pFileOut = fopen("../Data/sourceLink1.txt","w");    //写入刚才读取的文件
     if(pFileOut == NULL)
     {
         printf("can not open the newgtal.txt file or there is no the file!\n");
@@ -35,7 +39,7 @@ void tableSaveFile( table_t *p )
         printf("Save Opening!\n");
     }
     printf("\n\t\t\tFile Saving....\n");
-    while(count < tableLength)
+    while(count < len)
     {
         fprintf(pFileOut,"%5d",count);
         fprintf(pFileOut,"#");
@@ -68,12 +72,15 @@ void tableSaveFile( table_t *p )
 **************************************************************************/
 Link_t listSaveFile(Link_t p)
 {
-    char fileName[FILEMAXLENGTH];
+    char fileName[FILEMAXLENGTH];char fileNameHeader[FILEMAXLENGTH] = "../Data/";
+    char fileNameFeet[FILEMAXLENGTH];
     Link_t node = createList();
     int count = 0;
 
-    printf("Please input the writing file saving path(etc:../Data/sourceLink.txt):");
-    scanf("%s",fileName);
+    strcpy(fileName,fileNameHeader);
+    printf("Please input the saving file path(etc:sourceLink.txt):");
+    scanf("%s",fileNameFeet);
+    strcat(fileName,fileNameFeet);
     FILE *pFileOut = fopen(fileName,"w");    //写入刚才读取的文件
     //FILE *pFileOut = fopen("../Data/sourceLink.txt","w");    //写入刚才读取的文件
     if(pFileOut == NULL)

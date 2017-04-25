@@ -8,32 +8,33 @@
 #include "tableHeader.h"
 #include "listHeader.h"
 
-extern int tableLength = 0;
+//extern int tableLength = 0;
 
 int main(void)
 {
-    clock_t start, finish;
+    mainMenuChoose();
+    /*clock_t start, finish;
     double  duration = 0.0;
-    /*Link_t p;
-    p = createList();
-    mainMenuChoose(p);*/
 
     table_t *array = (table_t *)malloc( TABLELENGTH * sizeof(table_t) );
     tableReadFile( array );
-
-    start = clock();
+    tableSaveFile( array, tableLength );
+    //tableSearchLinkID( array,tableLength );
+    //tableSearchBrunch( array,tableLength );
+    tableSearchRoadName( array,tableLength );
+    start = clock();*/
     //tableSaveFile( array );
-    //Bublesort( array,tableLength - 1 );
+    //Bublesort( array,tableLength );
     //SelectSort( array,tableLength );
     //InsertSort( array, tableLength );
     //QuickSort(array,0,tableLength);
     //MergeSort(array,0,tableLength);
     //ShellSort( array, tableLength );
-    HeapSort( array, tableLength );
-    tableSaveFile( array );
-    finish = clock();
+    //HeapSort( array, tableLength );
+    //tableSaveFile( array, tableLength );
+    /*finish = clock();
     duration = (double)(finish - start) / CLOCKS_PER_SEC;
-    printf("Execute times:%.8f seconds\n", duration);
+    printf("Execute times:%.8f seconds\n", duration);*/
 
     /*clock_t start, finish;
     double  duration = 0.0;

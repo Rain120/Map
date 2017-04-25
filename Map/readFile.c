@@ -16,10 +16,13 @@ int tableLength;
 **************************************************************************/
 void tableReadFile( table_t *p )
 {
+    tableLength = 0;
     table_t *node;
     node = p;
 
     char fileName[FILEMAXLENGTH];
+    char fileNameHeader[FILEMAXLENGTH] = "../Data/";
+    char fileNameFeet[FILEMAXLENGTH];
     int count = 0;
     unsigned short recordSizeBuf;
     unsigned long linkIDBuf;
@@ -27,10 +30,12 @@ void tableReadFile( table_t *p )
     unsigned long roadInfoBuf;
     char roadNameBuf[MAXLENGTH] = "";
 
-    /*printf("Please input the reading file path(etc:../Data/GTBL.dat):");
-    scanf("%s",fileName);
-    FILE *pFile = fopen(fileName,"rb");  //读*/
-    FILE *pFile = fopen("../Data/GTBL.dat","rb");  //读
+    strcpy(fileName,fileNameHeader);
+    printf("Please input the reading file path(etc:GTBL.dat):");
+    scanf("%s",fileNameFeet);
+    strcat(fileName,fileNameFeet);
+    FILE *pFile = fopen(fileName,"rb");  //读
+    //FILE *pFile = fopen("../Data/GTBL.dat","rb");  //读
     if(pFile == NULL)
     {
         printf("can not open the GTBL.dat file or there is no the file!\n");
@@ -94,6 +99,8 @@ void tableReadFile( table_t *p )
 Link_t listReadFile(Link_t p)
 {
     char fileName[FILEMAXLENGTH];
+    char fileNameHeader[FILEMAXLENGTH] = "../Data/";
+    char fileNameFeet[FILEMAXLENGTH];
     Link_t node = createList();
     int count = 0;
     unsigned short recordSizeBuf;
@@ -102,8 +109,10 @@ Link_t listReadFile(Link_t p)
     unsigned long roadInfoBuf;
     char roadNameBuf[MAXLENGTH] = "";
 
-    printf("Please input the reading file path(etc:../Data/GTBL.dat):");
-    scanf("%s",fileName);
+    strcpy(fileName,fileNameHeader);
+    printf("Please input the reading file path(etc:GTBL.dat):");
+    scanf("%s",fileNameFeet);
+    strcat(fileName,fileNameFeet);
     FILE *pFile = fopen(fileName,"rb");  //读
     //FILE *pFile = fopen("../Data/GTBL.dat","rb");  //读
     if(pFile == NULL)

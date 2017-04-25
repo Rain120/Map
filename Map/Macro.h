@@ -4,6 +4,7 @@
 /* *******************************
  * Define Or Global Paraments
  * *******************************/
+
 typedef int   U8;
 typedef char   INT;
 typedef unsigned char UCHAR; //1
@@ -12,7 +13,7 @@ typedef unsigned long ULONG; //4
 
 #define MAXLENGTH 30
 #define FILEMAXLENGTH 50
-#define TABLELENGTH 63555
+#define TABLELENGTH 70000
 
 #define MC_GET_CHAR(__data__)  (*((char *)(__data__)))
 #define MC_GET_SHORT(__data__)  ((UINT)(( ((UINT)(*((char *)(__data__))))<<8 )|( ((UINT)(*((char *)(__data__)+1)))&0x00ff )))
@@ -57,8 +58,8 @@ typedef struct table{
  * *******************************/
 
 void tableReadFile( table_t *p );
-void tableSaveFile( table_t *p );
-void tableUpdateInfo( table_t *p );
+void tableSaveFile( table_t *p,int len );
+void tableUpdateInfo( table_t *p,int len );
 
 /* *******************************
  * List Function Define
