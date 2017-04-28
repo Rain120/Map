@@ -9,8 +9,9 @@
 /* *******************************
  * Define Or Global Paraments
  * *******************************/
-static int rFlag = 0;
-extern int tableLength = 0;
+int sortFlag = 1;/**Jungle the data has be sorted**/
+static int rFlag = 0; /**Jungle the data has be executed readFile**/
+extern int tableLength = 0;/**The readFile length**/
 
 void versionMenu(void)
 {
@@ -193,59 +194,115 @@ void tableSortMenuChoose( table_t *p )
         switch(choose)
         {
             case 1:
-                start = clock();
-                Bublesort( p,tableLength - 1 );
-                finish = clock();
-                duration = (double)(finish - start) / CLOCKS_PER_SEC;
-                printf("Execute times:%.8f seconds\n", duration);
+                if (sortFlag)
+                {
+                    start = clock();
+                    Bublesort( p,tableLength - 1 );
+                    sortFlag = 0;
+                    finish = clock();
+                    duration = (double)(finish - start) / CLOCKS_PER_SEC;
+                    printf("Execute times:%.8f seconds\n", duration);
+                }
+                else
+                {
+                    puts("The data had sorted!!!");
+                }
                 break;
             case 2:
-                start = clock();
-                SelectSort( p,tableLength - 1 );
-                finish = clock();
-                duration = (double)(finish - start) / CLOCKS_PER_SEC;
-                printf("Execute times:%.8f seconds\n", duration);
+                if(sortFlag)
+                {
+                    start = clock();
+                    SelectSort( p,tableLength - 1 );
+                    sortFlag = 0;
+                    finish = clock();
+                    duration = (double)(finish - start) / CLOCKS_PER_SEC;
+                    printf("Execute times:%.8f seconds\n", duration);
+                }
+                else
+                {
+                    puts("The data had sorted!!!");
+                }
                 break;
             case 3:
-                start = clock();
-                InsertSort( p,tableLength );
-                finish = clock();
-                duration = (double)(finish - start) / CLOCKS_PER_SEC;
-                printf("Execute times:%.8f seconds\n", duration);
+                if(sortFlag)
+                {
+                    start = clock();
+                    InsertSort( p,tableLength );
+                    sortFlag = 0;
+                    finish = clock();
+                    duration = (double)(finish - start) / CLOCKS_PER_SEC;
+                    printf("Execute times:%.8f seconds\n", duration);
+                }
+                else
+                {
+                    puts("The data had sorted!!!");
+                }
                 break;
             case 4:
-                 printf("\t\t\tQuick Sorting Begining!!!\n");
-                 start = clock();
-                 QuickSort(p,0,tableLength);
-                 finish = clock();
-                 duration = (double)(finish - start) / CLOCKS_PER_SEC;
-                 printf("\t\t\tQuick Sorting Finished!!!\n");
-                 printf("Execute times:%.8f seconds\n", duration);
+                 if (sortFlag)
+                 {
+                     printf("\t\t\tQuick Sorting Begining!!!\n");
+                     start = clock();
+                     QuickSort(p,0,tableLength);
+                     sortFlag = 0;
+                     finish = clock();
+                     duration = (double)(finish - start) / CLOCKS_PER_SEC;
+                     printf("\t\t\tQuick Sorting Finished!!!\n");
+                     printf("Execute times:%.8f seconds\n", duration);
+                 }
+                 else
+                 {
+                     puts("The data had sorted!!!");
+                 }
                  break;
             case 5:
-                 printf("\t\t\tMerge Sorting Begining!!!\n");
-                 start = clock();
-                 MergeSort( p,0,tableLength - 1);
-                 finish = clock();
-                 duration = (double)(finish - start) / CLOCKS_PER_SEC;
-                 printf("\t\t\tMerge Sorting Finished!!!\n");
-                 printf("Execute times:%.8f seconds\n", duration);
+                 if(sortFlag)
+                 {
+                     printf("\t\t\tMerge Sorting Begining!!!\n");
+                     start = clock();
+                     MergeSort( p,0,tableLength - 1);
+                     sortFlag = 0;
+                     finish = clock();
+                     duration = (double)(finish - start) / CLOCKS_PER_SEC;
+                     printf("\t\t\tMerge Sorting Finished!!!\n");
+                     printf("Execute times:%.8f seconds\n", duration);
+                 }
+                 else
+                 {
+                     puts("The data had sorted!!!");
+                 }
                  break;
             case 6:
-                 start = clock();
-                 ShellSort( p, tableLength );
-                 finish = clock();
-                 duration = (double)(finish - start) / CLOCKS_PER_SEC;
-                 printf("Execute times:%.8f seconds\n", duration);
+                 if (sortFlag)
+                 {
+                     start = clock();
+                     ShellSort( p, tableLength );
+                     sortFlag = 0;
+                     finish = clock();
+                     duration = (double)(finish - start) / CLOCKS_PER_SEC;
+                     printf("Execute times:%.8f seconds\n", duration);
+                 }
+                 else
+                 {
+                     puts("The data had sorted!!!");
+                 }
                  break;
             case 7:
-                 printf("\t\t\tQuick Sorting Begining!!!\n");
-                 start = clock();
-                 HeapSort( p, tableLength );
-                 finish = clock();
-                 duration = (double)(finish - start) / CLOCKS_PER_SEC;
-                 printf("\t\t\tQuick Sorting Finished!!!\n");
-                 printf("Execute times:%.8f seconds\n", duration);
+                 if(sortFlag)
+                 {
+                     printf("\t\t\tQuick Sorting Begining!!!\n");
+                     start = clock();
+                     HeapSort( p, tableLength );
+                     sortFlag = 0;
+                     finish = clock();
+                     duration = (double)(finish - start) / CLOCKS_PER_SEC;
+                     printf("\t\t\tQuick Sorting Finished!!!\n");
+                     printf("Execute times:%.8f seconds\n", duration);
+                 }
+                 else
+                 {
+                     puts("The data had sorted!!!");
+                 }
                  break;
             case 0:
                 tableMenuChoose(p);
@@ -287,6 +344,7 @@ void tableMenuChoose(table_t *p)
             case 1:
                 tableReadFile(p);
                 tableSaveFile(p, tableLength);
+                sortFlag = 1;
                 rFlag = 1;
                 break;
             case 2:
@@ -362,10 +420,7 @@ void listInsertMenuChoose(Link_t p)
     char ch[MAXLENGTH];
     Link_t *q = createList();
     q = p;
-    int pos = 0;
     int choose;
-    Link_t node;
-    node = createList();
     listInsertMenu();
     while(1)
     {
@@ -374,36 +429,10 @@ void listInsertMenuChoose(Link_t p)
         switch(choose)
         {
             case 1:
-                printf("Please Input the data you want to insert:\n");
-                printf("linkID: ");
-                scanf("%ld",&node->road.linkID);
-                printf("\nBrunch: ");
-                scanf("%d",&node->road.Brunch);
-                printf("\nDispClass: ");
-                scanf("%d",&node->road.DispClass);
-                printf("\nRoadNameFlag: ");
-                scanf("%d",&node->road.RoadNameFlag);
-                printf("\nroadName: ");
-                scanf("%s",ch);
-                strcpy(node->road.roadName,ch);
-                q = listOrderInsert(q,node);
+                q = listOrderInsert(q);
                 break;
             case 2:
-                printf("Please Input the data you want to insert:\n");
-                printf("linkID: ");
-                scanf("%ld",&node->road.linkID);
-                printf("\nBrunch: ");
-                scanf("%d",&node->road.Brunch);
-                printf("\nDispClass: ");
-                scanf("%d",&node->road.DispClass);
-                printf("\nRoadNameFlag: ");
-                scanf("%d",&node->road.RoadNameFlag);
-                printf("\nroadName: ");
-                scanf("%s",ch);
-                strcpy(node->road.roadName,ch);
-                printf("Please Input the position you want to insert:");
-                scanf("%d",&pos);
-                q = listPositionInsert(q,pos,node);
+                q = listPositionInsert(q);
                 break;
             case 0:
                 listMenuChoose(q);
@@ -520,34 +549,66 @@ void listSortMenuChoose(Link_t p)
         switch(choose)
         {
            case 1:
-                start = clock();
-                q = bubbleSort(q);
-                finish = clock();
-                duration = (double)(finish - start) / CLOCKS_PER_SEC;
-                printf("Execute times:%.8f seconds\n", duration);
+                if(sortFlag)
+                {
+                    start = clock();
+                    q = bubbleSort(q);
+                    sortFlag = 0;
+                    finish = clock();
+                    duration = (double)(finish - start) / CLOCKS_PER_SEC;
+                    printf("Execute times:%.8f seconds\n", duration);
+                }
+                else
+                {
+                    puts("The data had sorted!!!");
+                }
                 break;
            case 2:
-                start = clock();
-                q = selectSort(q);
-                finish = clock();
-                duration = (double)(finish - start) / CLOCKS_PER_SEC;
-                printf("Execute times:%.8f seconds\n", duration);
+                if(sortFlag)
+                {
+                    start = clock();
+                    q = selectSort(q);
+                    sortFlag = 0;
+                    finish = clock();
+                    duration = (double)(finish - start) / CLOCKS_PER_SEC;
+                    printf("Execute times:%.8f seconds\n", duration);
+                }
+                else
+                {
+                    puts("The data had sorted!!!");
+                }
                 break;
            case 3:
-                start = clock();
-                q = insertSort(q);
-                finish = clock();
-                duration = (double)(finish - start) / CLOCKS_PER_SEC;
-                printf("Execute times:%.8f seconds\n", duration);
+                if(sortFlag)
+                {
+                    start = clock();
+                    q = insertSort(q);
+                    sortFlag = 0;
+                    finish = clock();
+                    duration = (double)(finish - start) / CLOCKS_PER_SEC;
+                    printf("Execute times:%.8f seconds\n", duration);
+                }
+                else
+                {
+                    puts("The data had sorted!!!");
+                }
                 break;
             case 4:
-                 printf("\t\t\tQuick Sorting Begining!!!\n");
-                 start = clock();
-                 quickSort(q,NULL);
-                 finish = clock();
-                 duration = (double)(finish - start) / CLOCKS_PER_SEC;
-                 printf("\t\t\tQuick Sorting Finished!!!\n");
-                 printf("Execute times:%.8f seconds\n", duration);
+                 if(sortFlag)
+                 {
+                     printf("\t\t\tQuick Sorting Begining!!!\n");
+                     start = clock();
+                     quickSort(q,NULL);
+                     sortFlag = 0;
+                     finish = clock();
+                     duration = (double)(finish - start) / CLOCKS_PER_SEC;
+                     printf("\t\t\tQuick Sorting Finished!!!\n");
+                     printf("Execute times:%.8f seconds\n", duration);
+                 }
+                 else
+                 {
+                     puts("The data had sorted!!!");
+                 }
                  break;
             case 0:
                 listMenuChoose(q);
@@ -590,6 +651,7 @@ void listMenuChoose(Link_t p)
         {
             case 1:
                 *q = listReadFile(p);
+                sortFlag = 1;
                 listSaveFile(q);
                 rFlag = 1;
                 break;
