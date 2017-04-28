@@ -49,7 +49,8 @@ void tableUpdateInfo(table_t *p,int len)
         linkIDBuf = MC_GET_LONG(&node[count].road_t.linkID);
         roadSizeBuf = MC_GET_SHORT(&node[count].road_t.roadNameSize);
         roadInfoBuf = MC_GET_LONG(&node[count].road_t.roadInfo);
-        strcat(&roadNameBuf,&node[count].road_t.roadName);
+        //strcat(&roadNameBuf,&node[count].road_t.roadName);
+        strcpy(&roadNameBuf[4],&node[count].road_t.roadName);
 
         fwrite(&recordSizeBuf,sizeof(unsigned short),1,pFileIn);
         fwrite(&linkIDBuf,sizeof(unsigned long),1,pFileIn);
@@ -111,7 +112,8 @@ Link_t listUpdateInfo(Link_t p)
         linkIDBuf = MC_GET_LONG(&node->road.linkID);
         roadSizeBuf = MC_GET_SHORT(&node->road.roadNameSize);
         roadInfoBuf = MC_GET_LONG(&node->road.roadInfo);
-        strcat(&roadNameBuf,&node->road.roadName);
+        //strcat(&roadNameBuf,&node->road.roadName);
+        strcpy(&roadNameBuf[4],&node[count].road_t.roadName);
 
         fwrite(&recordSizeBuf,sizeof(unsigned short),1,pFileIn);
         fwrite(&linkIDBuf,sizeof(unsigned long),1,pFileIn);
