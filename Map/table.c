@@ -452,25 +452,53 @@ void tableSearchRoadName( table_t *p,int len )
  * ***********************************************************************/
 
 /*************************************************************************
+*    Func:      JungleSameLinkID(Table)
+*    Para:      table_t *p,unsigned long tLinkID,int len
+*    retrurn:   int
+**************************************************************************/
+int JungleSameLinkID(table_t *p,unsigned long tLinkID,int len)
+{
+    int i = 0;
+    while(i < len)
+    {
+        if (tLinkID == p[i].road_t.linkID)
+        {
+            return 0;
+        }
+        i++;
+    }
+    return 1;
+}
+
+/*************************************************************************
 *    Func:      tableInsertOrder(Table)
 *    Para:      table_t *p, table_t *q
 *    retrurn:   int
 **************************************************************************/
 int tableOrderInsert( table_t *p,int len )
 {
+    unsigned long tLinkID = 0;
     int i = len;
     int j = 0;
     table_t *q = (table_t *)malloc( TABLELENGTH * sizeof(table_t) );
 
     printf("Please input the data you want to insert!!!\n");
     printf("LinkID:");
-    scanf("%ld",&q[0].road_t.linkID);
+    scanf("%ld",&tLinkID);
+    if( !JungleSameLinkID( p,tLinkID,len ) )
+    {
+        puts("The LinkID had in the data,Please input again:");
+        printf("linkID: ");
+        scanf("%ld",&tLinkID);
+    }
+
+    q[0].road_t.linkID = tLinkID;
     printf("Brunch:");
     scanf("%d",&q[0].road_t.Brunch);
     printf("DispClass:");
     scanf("%d",&q[0].road_t.DispClass);
     printf("RoadNameFlag:");
-        scanf("%d",&q[0].road_t.RoadNameFlag);
+    scanf("%d",&q[0].road_t.RoadNameFlag);
     printf("roadName:");
     scanf("%s",q[0].road_t.roadName);
 
@@ -501,6 +529,7 @@ int tableOrderInsert( table_t *p,int len )
 **************************************************************************/
 int tablePositionInsert( table_t *p,int len )
 {
+    unsigned long tLinkID = 0;
     int pos = 0;
     int i = len;
     //char tRoadName[MAXLENGTH];
@@ -508,7 +537,15 @@ int tablePositionInsert( table_t *p,int len )
 
     printf("Please input the data you want to insert!!!\n");
     printf("LinkID:");
-    scanf("%ld",&q[0].road_t.linkID);
+    scanf("%ld",&tLinkID);
+    if( !JungleSameLinkID( p,tLinkID,len ) )
+    {
+        puts("The LinkID had in the data,Please input again:");
+        printf("linkID: ");
+        scanf("%ld",&tLinkID);
+    }
+
+    q[0].road_t.linkID = tLinkID;
     printf("Brunch:");
     scanf("%d",&q[0].road_t.Brunch);
     printf("DispClass:");
