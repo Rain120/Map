@@ -593,13 +593,54 @@ Link_t listSearchRoadName(Link_t head, char *lRoadName)
     return head;
 }
 /*************************************************************************
+*    Func:      jungleSameLinkID(List)
+*    Para:      Link_t p,unsigned long lLinkID
+*    retrurn:   int
+**************************************************************************/
+int jungleSameLinkID(Link_t p,unsigned long lLinkID)
+{
+    Link_t q;
+    q = p->next;
+    while (q != NULL)
+    {
+        if(lLinkID == q->road.linkID)
+        {
+            return 0;
+        }
+        q = q->next;
+    }
+    return 1;
+}
+/*************************************************************************
 *    链表按顺序插入
 **************************************************************************/
 
-Link_t listOrderInsert(Link_t L, Link_t node)
+Link_t listOrderInsert(Link_t L)
 {
-    Link_t p, q;
+    unsigned long lLinkID;
+    Link_t p, q,node;
     p = L;
+    node = createList();
+
+    printf("Please Input the data you want to insert:\n");
+    printf("linkID: ");
+    scanf("%ld",&lLinkID);
+    if( !jungleSameLinkID(p,lLinkID) )
+    {
+        puts("The LinkID had in the data,Please input again:");
+        printf("linkID: ");
+        scanf("%ld",&lLinkID);
+    }
+    node->road.linkID = lLinkID;
+    printf("Brunch: ");
+    scanf("%d",&node->road.Brunch);
+    printf("DispClass: ");
+    scanf("%d",&node->road.DispClass);
+    printf("RoadNameFlag: ");
+    scanf("%d",&node->road.RoadNameFlag);
+    printf("roadName: ");
+    scanf("%s",node->road.roadName);
+
     while (p -> next != NULL && p->next->road.linkID < node->road.linkID)
     {
         p = p->next;
@@ -626,11 +667,38 @@ Link_t listOrderInsert(Link_t L, Link_t node)
 /*************************************************************************
 *    链表插入,在链表的第pos个位置插入元素
 **************************************************************************/
-Link_t listPositionInsert(Link_t L,int pos,Link_t node)
+Link_t listPositionInsert(Link_t L)
 {
+    unsigned long lLinkID;
     Link_t pre;                      //pre为前驱结点
     Link_t q;                                //插入的结点为q
+    Link_t node;
+    node = createList();
+
+    int pos;
+
     pre = L;
+    printf("Please Input the data you want to insert:\n");
+    printf("linkID: ");
+    scanf("%ld",&lLinkID);
+    if( !jungleSameLinkID(pre,lLinkID) )
+    {
+        puts("The LinkID had in the data,Please input again:");
+        printf("linkID: ");
+        scanf("%ld",&lLinkID);
+    }
+    node->road.linkID = lLinkID;
+    printf("Brunch: ");
+    scanf("%d",&node->road.Brunch);
+    printf("DispClass: ");
+    scanf("%d",&node->road.DispClass);
+    printf("RoadNameFlag: ");
+    scanf("%d",&node->road.RoadNameFlag);
+    printf("roadName: ");
+    scanf("%s",node->road.roadName);
+    printf("Please Input the position you want to insert:");
+    scanf("%d",&pos);
+
     while (pos-- > 1)
     {
         pre = pre->next;                 //查找第i个位置的前驱结点
